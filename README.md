@@ -33,6 +33,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Authentication
+
+Kuda uses Neon Managed Better Auth. Copy `.env.example` to `.env.local`, set `NEON_AUTH_BASE_URL` from the Neon project branch Auth configuration page, and set `NEON_AUTH_COOKIE_SECRET` to a random value of at least 32 characters. The auth API is served at `/api/auth/*`, and the dashboard is protected by the Next.js 16 `proxy.ts`.
+
 ## Validate
 
 ```bash

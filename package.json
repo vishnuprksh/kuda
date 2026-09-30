@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@neondatabase/auth": "^0.5.0-beta",
     "graphifyy": "^0.10.0",
     "lucide-react": "^1.49.0",
     "next": "16.3.8",
