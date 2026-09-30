@@ -37,6 +37,21 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Kuda uses Neon Managed Better Auth. Copy `.env.example` to `.env.local`, set `NEON_AUTH_BASE_URL` from the Neon project branch Auth configuration page, and set `NEON_AUTH_COOKIE_SECRET` to a random value of at least 32 characters. The auth API is served at `/api/auth/*`, and the dashboard is protected by the Next.js 16 `proxy.ts`.
 
+For local browser testing, add every origin used by the browser to the Neon Auth trusted domains for the target branch. In a forwarded VS Code environment this commonly includes both `http://localhost:<port>` and `http://127.0.0.1:<port>`. Do not commit `.env.local` or expose the cookie secret to client code.
+
+To smoke-test the production build locally:
+
+```bash
+npm run build
+npm run start -- --port 3003
+```
+
+Open `http://localhost:3003`, sign in through the auth screen, and confirm that the dashboard loads after authentication. The session endpoint should also return HTTP 200:
+
+```bash
+curl -i http://localhost:3003/api/auth/get-session
+```
+
 ## Validate
 
 ```bash
