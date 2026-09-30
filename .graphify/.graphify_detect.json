@@ -1,0 +1,37 @@
+{
+  "files": {
+    "code": [
+      "eslint.config.mjs",
+      "next.config.ts",
+      "postcss.config.mjs",
+      "src/app/layout.tsx",
+      "src/app/page.tsx"
+    ],
+    "document": [],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "total_files": 5,
+  "total_words": 1150,
+  "needs_graph": false,
+  "warning": "Corpus is ~1,150 words - fits in a single context window. You may not need a graph.",
+  "skipped_sensitive": [],
+  "graphifyignore_patterns": 24,
+  "scope": {
+    "requested_mode": "committed",
+    "resolved_mode": "committed",
+    "source": "cli",
+    "root": ".",
+    "git_root": ".",
+    "head": "b851c1f5dc4a0756ca1c4ad587fe8cead1d584e2",
+    "candidate_count": 19,
+    "included_count": 5,
+    "excluded_untracked_count": 11,
+    "excluded_ignored_count": 40677,
+    "excluded_sensitive_count": 0,
+    "missing_committed_count": 0,
+    "warnings": [],
+    "recommendation": "Use --scope all or graphify.yaml inputs.corpus for a knowledge-base folder."
+  }
+}

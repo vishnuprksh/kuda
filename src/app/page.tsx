@@ -24,6 +24,7 @@ import {
   Zap,
 } from "lucide-react";
 
+<<<<<<< Updated upstream
 type Project = {
   name: string;
   type: string;
@@ -32,6 +33,9 @@ type Project = {
   color: string;
   brief: string;
 };
+=======
+type Project = { name: string; type: string; status: string; time: string; color: string; brief: string };
+>>>>>>> Stashed changes
 
 const initialProviders = [
   { name: "GitHub", detail: "Source control", icon: GitBranch, tone: "ink", connected: true },
@@ -61,12 +65,16 @@ export default function Home() {
   const [projectType, setProjectType] = useState("Web app");
   const [projects, setProjects] = useState<Project[]>(() => {
     if (typeof window === "undefined") return initialProjects;
+<<<<<<< Updated upstream
     const stored = window.localStorage.getItem("kuda-projects");
     try {
       return stored ? JSON.parse(stored) as Project[] : initialProjects;
     } catch {
       return initialProjects;
     }
+=======
+    try { return JSON.parse(window.localStorage.getItem("kuda-projects") || "null") || initialProjects; } catch { return initialProjects; }
+>>>>>>> Stashed changes
   });
   const [providers, setProviders] = useState(initialProviders);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -76,6 +84,7 @@ export default function Home() {
   const [workspaceName, setWorkspaceName] = useState("Acme workspace");
   const [defaultModel, setDefaultModel] = useState("OpenRouter");
   const [isDeploying, setIsDeploying] = useState(false);
+<<<<<<< Updated upstream
   const [isHydrated] = useState(true);
 
   useEffect(() => {
@@ -89,12 +98,22 @@ export default function Home() {
         startBuild();
       }
     }
+=======
+
+  useEffect(() => { window.localStorage.setItem("kuda-projects", JSON.stringify(projects)); }, [projects]);
+  useEffect(() => {
+    function handleShortcut(event: KeyboardEvent) { if ((event.metaKey || event.ctrlKey) && event.key === "Enter") { event.preventDefault(); startBuild(); } }
+>>>>>>> Stashed changes
     window.addEventListener("keydown", handleShortcut);
     return () => window.removeEventListener("keydown", handleShortcut);
   });
 
   function startBuild() {
+<<<<<<< Updated upstream
     const brief = (document.getElementById("project-prompt") as HTMLTextAreaElement | null)?.value.trim() || prompt.trim();
+=======
+    const brief = prompt.trim();
+>>>>>>> Stashed changes
     if (!brief) return;
     const name = projectName.trim() || brief.split(/\s+/).slice(0, 2).join("-").toLowerCase();
     setProjectName(name);
@@ -107,6 +126,18 @@ export default function Home() {
       setProjects((current) => current.map((project) => project.name === name ? { ...project, status: "Live", time: "Just now" } : project));
       setIsRunning(false);
     }, 1800);
+<<<<<<< Updated upstream
+=======
+  }
+
+  function toggleProvider(name: string) { setProviders((current) => current.map((provider) => provider.name === name ? { ...provider, connected: !provider.connected } : provider)); }
+  const activeProject = projects.find((project) => project.name === selectedProject);
+  function deployPreview() {
+    if (!activeProject) return;
+    setIsDeploying(true);
+    setProjects((current) => current.map((project) => project.name === activeProject.name ? { ...project, status: "Preview", time: "Deploying now" } : project));
+    window.setTimeout(() => { setProjects((current) => current.map((project) => project.name === activeProject.name ? { ...project, status: "Live", time: "Just now" } : project)); setIsDeploying(false); }, 1200);
+>>>>>>> Stashed changes
   }
 
   function toggleProvider(name: string) {
@@ -140,7 +171,11 @@ export default function Home() {
           <a className="nav-item" href="#projects" onClick={() => setMenuOpen(false)}><Code2 size={17} />Projects<span className="nav-count">3</span></a>
           <a className="nav-item" href="#activity" onClick={() => setMenuOpen(false)}><Terminal size={17} />Activity</a>
           <span className="nav-label nav-label-spaced">Connect</span>
+<<<<<<< Updated upstream
           <a className="nav-item" href="#services" onClick={() => setMenuOpen(false)}><Globe2 size={17} />Services<span className="status-dot" /></a>
+=======
+          <a className="nav-item" href="#services"><Globe2 size={17} />Services<span className="status-dot" /></a>
+>>>>>>> Stashed changes
           <button className="nav-item nav-button" onClick={() => { setShowSettings(true); setMenuOpen(false); }}><Settings2 size={17} />Settings</button>
         </nav>
         <div className="sidebar-footer"><div className="model-orb"><Sparkles size={16} /></div><div><strong>{defaultModel}</strong><span>Free model · connected</span></div><CircleHelp size={16} className="muted-icon" /></div>
@@ -159,10 +194,17 @@ export default function Home() {
               <textarea ref={promptRef} id="project-prompt" value={prompt} onChange={(event) => setPrompt(event.currentTarget.value)} placeholder="Describe what you want to build..." aria-label="Describe your project" />
               <div className="prompt-footer"><span className="prompt-hint">Try “A waitlist page for a new coffee brand”</span><button className="build-button" onClick={startBuild}><Rocket size={16} />Start building <span className="shortcut">⌘ ↵</span></button></div>
             </div>
+<<<<<<< Updated upstream
             <div className="stack-panel" id="services"><div className="section-heading"><div><p className="eyebrow">DEFAULT STACK</p><h2>Everything connected</h2></div><button className="text-button" onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}>Manage <ArrowUpRight size={14} /></button></div><div className="provider-list">{providers.map(({ name, detail, icon: Icon, tone, connected }) => <button className={`provider-row provider-button ${connected ? "connected" : ""}`} key={name} onClick={() => toggleProvider(name)} aria-label={`${connected ? "Disconnect" : "Connect"} ${name}`}><div className={`provider-icon ${tone}`}><Icon size={17} /></div><div className="provider-copy"><strong>{name}</strong><span>{detail}</span></div>{connected ? <Check size={16} className="check-icon" /> : <span className="connect-label">Connect</span>}</button>)}</div></div>
           </section>
 
           <section className="lower-grid"><div className="run-panel" id="activity"><div className="section-heading"><div><p className="eyebrow">{isRunning ? "BUILD IN PROGRESS" : "LATEST RUN"}</p><h2>{selectedProject ? `${selectedProject} is ${isRunning ? "taking shape" : "ready"}` : "Ready when you are"}</h2></div><span className={`run-badge ${isRunning ? "building" : "ready"}`}><span />{isRunning ? "Building" : "Idle"}</span></div><div className="timeline">{steps.map((step) => <div className={`timeline-row ${step.state}`} key={step.label}><div className="timeline-marker">{step.state === "done" ? <Check size={13} /> : step.state === "active" ? <span className="pulse" /> : null}</div><div><strong>{step.label}</strong><span>{step.meta}</span></div>{step.state === "active" && <span className="now-label">Now</span>}</div>)}</div></div><div className="projects-panel" id="projects"><div className="section-heading"><div><p className="eyebrow">YOUR PROJECTS</p><h2>Recent work</h2></div><button className="icon-button" aria-label="More project options"><MoreHorizontal size={18} /></button></div><div className="project-list">{projects.map((project) => <button className={`project-row project-button ${selectedProject === project.name ? "selected" : ""}`} key={project.name} onClick={() => setSelectedProject(project.name)}><span className="project-color" style={{ background: project.color }} /><div className="project-copy"><strong>{project.name}</strong><span>{project.type}</span></div><div className={`project-status ${project.status.toLowerCase()}`}><span />{project.status}</div><span className="project-time">{project.time}</span></button>)}</div><button className="view-all" onClick={() => document.getElementById("project-prompt")?.focus()}>View all projects <ArrowUpRight size={14} /></button></div></section>
+=======
+            <div className="stack-panel" id="services"><div className="section-heading"><div><p className="eyebrow">DEFAULT STACK</p><h2>Everything connected</h2></div><button className="text-button">Manage <ArrowUpRight size={14} /></button></div><div className="provider-list">{providers.map(({ name, detail, icon: Icon, tone, connected }) => <button className={`provider-row provider-button ${connected ? "connected" : ""}`} key={name} onClick={() => toggleProvider(name)} aria-label={`${connected ? "Disconnect" : "Connect"} ${name}`}><div className={`provider-icon ${tone}`}><Icon size={17} /></div><div className="provider-copy"><strong>{name}</strong><span>{detail}</span></div>{connected ? <Check size={16} className="check-icon" /> : <span className="connect-label">Connect</span>}</button>)}</div></div>
+          </section>
+
+          <section className="lower-grid"><div className="run-panel" id="activity"><div className="section-heading"><div><p className="eyebrow">{isRunning ? "BUILD IN PROGRESS" : "LATEST RUN"}</p><h2>{selectedProject ? `${selectedProject} is ${isRunning ? "taking shape" : "ready"}` : "Ready when you are"}</h2></div><span className={`run-badge ${isRunning ? "building" : "ready"}`}><span />{isRunning ? "Building" : "Idle"}</span></div><div className="timeline">{steps.map((step) => <div className={`timeline-row ${step.state}`} key={step.label}><div className="timeline-marker">{step.state === "done" ? <Check size={13} /> : step.state === "active" ? <span className="pulse" /> : null}</div><div><strong>{step.label}</strong><span>{step.meta}</span></div>{step.state === "active" && <span className="now-label">Now</span>}</div>)}</div></div><div className="projects-panel" id="projects"><div className="section-heading"><div><p className="eyebrow">YOUR PROJECTS</p><h2>Recent work</h2></div><button className="icon-button" aria-label="More project options"><MoreHorizontal size={18} /></button></div><div className="project-list">{projects.map((project) => <button className={`project-row project-button ${selectedProject === project.name ? "selected" : ""}`} key={project.name} onClick={() => setSelectedProject(project.name)}><span className="project-color" style={{ background: project.color }} /><div className="project-copy"><strong>{project.name}</strong><span>{project.type}</span></div><div className={`project-status ${project.status.toLowerCase()}`}><span />{project.status}</div><span className="project-time">{project.time}</span></button>)}</div><button className="view-all" onClick={() => promptRef.current?.focus()}>View all projects <ArrowUpRight size={14} /></button></div></section>
+>>>>>>> Stashed changes
           {activeProject && <section className="project-detail" aria-live="polite"><div><p className="eyebrow">SELECTED PROJECT</p><h2>{activeProject.name}</h2><p>{activeProject.brief}</p></div><div className="detail-actions"><button className="secondary-button" onClick={() => setPrompt(activeProject.brief)}>Edit brief</button><button className="new-project-button" onClick={deployPreview} disabled={isDeploying}><Rocket size={15} />{isDeploying ? "Deploying..." : "Deploy preview"}</button></div></section>}
           {showSettings && <div className="modal-backdrop" onClick={() => setShowSettings(false)}><section className="settings-modal" onClick={(event) => event.stopPropagation()}><div className="section-heading"><div><p className="eyebrow">WORKSPACE</p><h2>Settings</h2></div><button className="icon-button" onClick={() => setShowSettings(false)} aria-label="Close settings"><X size={18} /></button></div><label>Workspace name<input value={workspaceName} onChange={(event) => setWorkspaceName(event.target.value)} /></label><label>Default model<select value={defaultModel} onChange={(event) => setDefaultModel(event.target.value)}><option>OpenRouter</option><option>Local model</option></select></label><button className="new-project-button" onClick={() => setShowSettings(false)}>Save settings</button></section></div>}
         </div>

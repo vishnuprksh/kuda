@@ -1,0 +1,119 @@
+{
+  "communities": {
+    "0": [
+      "app_page",
+      "app_page_home",
+      "app_page_initialprojects",
+      "app_page_initialproviders",
+      "app_page_initialsteps",
+      "app_page_project"
+    ],
+    "1": [
+      "app_layout",
+      "app_layout_geistmono",
+      "app_layout_geistsans",
+      "app_layout_metadata",
+      "app_layout_rootlayout"
+    ],
+    "2": [
+      "eslint_config",
+      "eslint_config_eslintconfig"
+    ],
+    "3": [
+      "next_config",
+      "next_config_nextconfig"
+    ],
+    "4": [
+      "postcss_config",
+      "postcss_config_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.3333333333333333,
+    "1": 0.4,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "gods": [
+    {
+      "id": "eslint_config_eslintconfig",
+      "label": "eslintConfig",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "next_config_nextconfig",
+      "label": "nextConfig",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "postcss_config_config",
+      "label": "config",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_layout_geistsans",
+      "label": "geistSans",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_layout_geistmono",
+      "label": "geistMono",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_layout_metadata",
+      "label": "metadata",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_page_project",
+      "label": "Project",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_page_initialproviders",
+      "label": "initialProviders",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_page_initialprojects",
+      "label": "initialProjects",
+      "edges": 1,
+      "degree": 1
+    },
+    {
+      "id": "app_page_initialsteps",
+      "label": "initialSteps",
+      "edges": 1,
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `eslintConfig`, `nextConfig`, `config` to the rest of the system?",
+      "why": "10 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ],
+  "labels": {
+    "0": "Community 0",
+    "1": "Community 1",
+    "2": "Community 2",
+    "3": "Community 3",
+    "4": "Community 4"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
